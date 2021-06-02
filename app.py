@@ -1,6 +1,6 @@
 import sys
-import main_class
 import configparser
+import main_class
 
 
 def main():
@@ -23,19 +23,18 @@ def main():
     while True:
         choice = input(" (Y)es , (N)o ").lower()
         if choice == "y":
-            mc.update_subject()
+            mc.update_kv('subject')
             break
-        elif choice == "n":
+        if choice == "n":
             break
 
     print("Update body?")
     while True:
         choice = input(" (Y)es , (N)o ").lower()
-
         if choice == "y":
-            mc.update_body()
+            mc.update_kv()
             break
-        elif choice == "n":
+        if choice == "n":
             break
     print("Send email?")
     while True:

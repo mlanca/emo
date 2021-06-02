@@ -37,11 +37,26 @@ class main_class:
         if con:   
             con.close()
 
-    def update_subject():
-        pass
+    def update_kv(self, opt='body'):
+        su = input("Enter text: ")
+        no = str(datetime.datetime.now())
+        con = sqlite3.connect(self.db_name)
+        cur = con.cursor()
+        sql = 'UPDATE keyvalue SET target_val = ? WHERE target = ?'
+        data = (su, opt)
+        try:
+            print("...working...")
+            cur.execute(sql, data)
+            con.commit()
+        except IntegrityError:
+            print("whoops")
+            try:
+                os.system('pause')  #windows, doesn't require enter
+            except:
+                os.system('read -p "Press any key to continue"') #linux
+        if con:   
+            con.close()
 
-    def update_body():
-        pass
 
     def send_email():
         pass
