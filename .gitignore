@@ -3,3 +3,4 @@ venv
 *.ini
 *.idea
 run.py
+__pycache__
