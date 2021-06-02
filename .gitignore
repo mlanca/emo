@@ -2,3 +2,4 @@ venv
 *.vscode
 *.ini
 *.idea
+run.py
