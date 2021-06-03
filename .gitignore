@@ -6,3 +6,4 @@ run.py
 __pycache__
 *.xml
 *.sqbpro
+scratch.txt.py

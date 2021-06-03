@@ -2,6 +2,7 @@ import os
 import sqlite3
 import datetime
 from sqlite3.dbapi2 import IntegrityError
+import yagmail
 
 
 class main_class:
@@ -58,5 +59,19 @@ class main_class:
             con.close()
 
 
-    def send_email():
-        pass
+    def send_email(self):
+        con = sqlite3.connect('emo.db')
+        cur = con.cursor()
+        yag = yagmail.SMTP(user='mikeafter5@gmail.com', password='Shawndar69')
+        cur.execute('select target_val from keyvalue where target = "subject"')
+        subject = cur.fetchone()[0]
+        
+        cur.execute('select target_val from keyvalue where target = "body"')
+        body = cur.fetchone()[0]
+        
+        for row in cur.execute('SELECT email FROM client ORDER BY email'):
+            print(row[0])
+            to = row[0]
+            yag.send(to = [to], subject=subject, contents=body)
+        yag.close()    
+        con.close()
