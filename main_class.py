@@ -62,16 +62,25 @@ class main_class:
     def send_email(self):
         con = sqlite3.connect('emo.db')
         cur = con.cursor()
-        yag = yagmail.SMTP(user='mikeafter5@gmail.com', password='Shawndar69')
-        cur.execute('select target_val from keyvalue where target = "subject"')
-        subject = cur.fetchone()[0]
-        
-        cur.execute('select target_val from keyvalue where target = "body"')
-        body = cur.fetchone()[0]
-        
-        for row in cur.execute('SELECT email FROM client ORDER BY email'):
-            print(row[0])
-            to = row[0]
-            yag.send(to = [to], subject=subject, contents=body)
-        yag.close()    
-        con.close()
+        try:
+            yag = yagmail.SMTP(user='mikeafter5@gmail.com', password='Shawndar69')
+            cur.execute('select target_val from keyvalue where target = "subject"')
+            subject = cur.fetchone()[0]
+            
+            cur.execute('select target_val from keyvalue where target = "body"')
+            body = cur.fetchone()[0]
+            
+            for row in cur.execute('SELECT email FROM client ORDER BY email'):
+                print('sending...' + row[0])
+                to = row[0]
+                yag.send(to = [to], subject=subject, contents=body)
+            if yag:
+                yag.close()
+            if con:
+                con.close()
+        except:
+            print("whoops sending")
+            try:
+                os.system('pause')  #windows, doesn't require enter
+            except:
+                os.system('read -p "Press any key to continue"') #linux
